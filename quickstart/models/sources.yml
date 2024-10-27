@@ -1,0 +1,10 @@
+# models/sources.yml
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: raw   # Set to your database name
+    schema: jaffle_shop  # Set to your schema name
+    tables:
+      - name: customers
+      - name: orders
