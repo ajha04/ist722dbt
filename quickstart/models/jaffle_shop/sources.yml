@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: jaffle_shop
-    database: dbt_database
-    schema: dbt_ajha
+    database: DBT_DATABASE
+    schema: DBT_AJHA
     tables:
       - name: customers
         description: "One record per customer."
