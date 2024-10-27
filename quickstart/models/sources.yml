@@ -1,10 +1,14 @@
 # models/sources.yml
+
 version: 2
 
 sources:
   - name: jaffle_shop
-    database: raw   # Set to your database name
-    schema: jaffle_shop  # Set to your schema name
+    description: This is a replica of the Postgres database used by our app
+    database: raw  # This should match the database name in Snowflake
+    schema: jaffle_shop  # This should match the schema name in Snowflake
     tables:
       - name: customers
+        description: One record per customer.
       - name: orders
+        description: One record per order. Includes cancelled and deleted orders.
