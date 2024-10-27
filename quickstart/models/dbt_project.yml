@@ -1,0 +1,8 @@
+# dbt_project.yml
+
+name: 'ist722dbt'  # Your project name
+version: '1.0'
+
+models:
+  ist722dbt:  # Match this name to the one defined at the top
+    +schema: jaffle_shop  # Set the schema where your models should be created
