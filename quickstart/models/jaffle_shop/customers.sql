@@ -1,20 +1,23 @@
--- models/customers.sql
+-- models/jaffle_shop/customers.sql
+with customer_orders as (
+    select
+        customer_id,
+        min(order_date) as first_order_date,
+        max(order_date) as most_recent_order_date,
+        count(order_id) as number_of_orders
+    from {{ ref('stg_orders') }}
+    group by customer_id
+)
 
-{{ config(
-    materialized = 'incremental',  -- This setting tells dbt to keep the table persistent and only update it
-    unique_key = 'customer_id'     -- Specifies a unique identifier for updates
-) }}
+select
+    stg_customers.customer_id,
+    stg_customers.first_name,
+    stg_customers.last_name,
+    customer_orders.first_order_date,
+    customer_orders.most_recent_order_date,
+    customer_orders.number_of_orders
+from {{ ref('stg_customers') }} as stg_customers
+left join customer_orders
+on stg_customers.customer_id = customer_orders.customer_id
 
-SELECT
-    customer_id,
-    customer_name,
-    customer_email,
-    customer_address,
-    created_at,
-    updated_at
-FROM
-    raw_source.customers  -- Replace with your actual source schema and table name
 
-{% if is_incremental() %}
-WHERE updated_at > (SELECT MAX(updated_at) FROM {{ this }})  -- Only include records that are newer than the latest in the table
-{% endif %}
