@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: dbt_database
+    schema: dbt_ajha
+    tables:
+      - name: customers
+        description: "One record per customer."
+      - name: orders
+        description: "One record per order. Includes canceled and deleted orders."
